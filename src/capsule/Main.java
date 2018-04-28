@@ -4,17 +4,17 @@ public class Main
 {
 	public static void main( String[] args )
 	{
-		Man qjiro = new Man( 65 );
-		Man schan = new Man( 1020 );
-		Man taro = new Man( 20 );
+		Person ataro = new Person( "AAA", 5, "2000/01/01" );
+		Person btaro = new Person( "BBB", 65, "2005/05/01" );
+		Person ctaro = new Person( "CCC", 20, "2015/10/01" );
 
-		Capsule older = new Capsule( qjiro.getAttribute() );
-		System.out.println( "qjiro:" + older.calc() );
+		Capsule calcOfAtaro = new Capsule( ataro.getAge() );
+		System.out.println( "ataro:" + calcOfAtaro.getCalculation() );
 
-		Capsule wormen = new Capsule( schan.getAttribute() );
-		System.out.println( "schan:" + wormen.calc() );
+		Capsule calcOfBtaro = new Capsule( btaro.getAge() );
+		System.out.println( "btaro:" + calcOfBtaro.getCalculation() );
 
-		Capsule men = new Capsule( taro.getAttribute() );
-		System.out.println( "taro:" + men.calc() );
+		Capsule calcOfCtaro = new Capsule( ctaro.getAge() );
+		System.out.println( "ctaro:" + calcOfCtaro.getCalculation() );
 	}
 }

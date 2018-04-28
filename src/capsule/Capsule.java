@@ -16,11 +16,11 @@ public class Capsule
 {
 	private int base = 100;
 	// newすることでしか値を設定することができなくなった。
-	private String attribute;
+	private int age;
 
-	Capsule(String attribute)
+	Capsule(int age)
 	{
-		this.attribute = attribute;
+		this.age = age;
 	}
 
 	/**
@@ -28,38 +28,56 @@ public class Capsule
 	 * 
 	 * @return 計算結果
 	 */
-	public int calc()
+	public double getCalculation()
 	{
-		int result = 0;
-		int charge = chargeCase( this.attribute );
+		double result = 0;
+		double rate = getDiscountRate( this.age );
 
-		result = this.base * charge;
+		result = Math.round( this.base * rate );
 
 		return result;
 	}
 
 	/**
-	 * カテゴリーによって、変更する.
+	 * 割引率を取得する.
 	 * 
-	 * @param attribute
-	 *            年齢・性別
-	 * @return カテゴリー別に基準値
+	 * @return 割引率
 	 */
-	private int chargeCase( String attribute )
+	private double getDiscountRate( int age )
 	{
-		int charge = 0;
-
-		switch (attribute) {
-		case "older":
-			charge = 5;
-			break;
-		case "wormen":
-			charge = 2;
-			break;
-		default:
-			charge = 10;
+		if (5 >= this.age) {
+			return 0.0;
 		}
 
-		return charge;
+		if (65 <= this.age) {
+			return 0.5;
+		}
+
+		return 1.0;
 	}
+
+	// /**
+	// * カテゴリーによって、変更する.
+	// *
+	// * @param attribute
+	// * 年齢・性別
+	// * @return カテゴリー別に基準値
+	// */
+	// private int chargeCase( String attribute )
+	// {
+	// int charge = 0;
+	//
+	// switch (attribute) {
+	// case "older":
+	// charge = 5;
+	// break;
+	// case "wormen":
+	// charge = 2;
+	// break;
+	// default:
+	// charge = 10;
+	// }
+	//
+	// return charge;
+	// }
 }
