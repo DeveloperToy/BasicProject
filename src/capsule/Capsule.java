@@ -55,29 +55,4 @@ public class Capsule
 
 		return 1.0;
 	}
-
-	// /**
-	// * カテゴリーによって、変更する.
-	// *
-	// * @param attribute
-	// * 年齢・性別
-	// * @return カテゴリー別に基準値
-	// */
-	// private int chargeCase( String attribute )
-	// {
-	// int charge = 0;
-	//
-	// switch (attribute) {
-	// case "older":
-	// charge = 5;
-	// break;
-	// case "wormen":
-	// charge = 2;
-	// break;
-	// default:
-	// charge = 10;
-	// }
-	//
-	// return charge;
-	// }
 }
