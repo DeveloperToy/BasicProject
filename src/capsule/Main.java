@@ -8,13 +8,13 @@ public class Main
 		Person btaro = new Person( "BBB", 65, "2005/05/01" );
 		Person ctaro = new Person( "CCC", 20, "2015/10/01" );
 
-		Capsule calcOfAtaro = new Capsule( ataro.getAge() );
-		System.out.println( "ataro:" + calcOfAtaro.getCalculation() );
+		Capsule chargeOfAtaro = new Capsule( ataro.getAge() );
+		System.out.println( "ataro:" + chargeOfAtaro.getCalculation() );
 
-		Capsule calcOfBtaro = new Capsule( btaro.getAge() );
-		System.out.println( "btaro:" + calcOfBtaro.getCalculation() );
+		Capsule chargeOfBtaro = new Capsule( btaro.getAge() );
+		System.out.println( "btaro:" + chargeOfBtaro.getCalculation() );
 
-		Capsule calcOfCtaro = new Capsule( ctaro.getAge() );
-		System.out.println( "ctaro:" + calcOfCtaro.getCalculation() );
+		Capsule chargeOfCtaro = new Capsule( ctaro.getAge() );
+		System.out.println( "ctaro:" + chargeOfCtaro.getCalculation() );
 	}
 }

@@ -15,6 +15,11 @@ public class Person
 		System.out.println( this.getPerson() );
 	}
 
+	/**
+	 * 各ゲッター
+	 * 
+	 * @return 名前・年齢・誕生日
+	 */
 	public String getName()
 	{
 		return this.name;
@@ -30,6 +35,11 @@ public class Person
 		return this.birthday;
 	}
 
+	/**
+	 * 個人情報取得.
+	 * 
+	 * @return 個人情報
+	 */
 	private String getPerson()
 	{
 		return this.name.concat( "：" ).concat( String.valueOf( this.age ) ).concat( "：" ).concat( this.birthday );
