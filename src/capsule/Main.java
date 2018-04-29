@@ -9,12 +9,12 @@ public class Main
 		Person ctaro = new Person( "CCC", 20, "2015/10/01" );
 
 		Capsule chargeOfAtaro = new Capsule( ataro.getAge() );
-		System.out.println( "ataro:" + chargeOfAtaro.getCalculation() );
+		System.out.println( "ataro:" + chargeOfAtaro.getCharge() );
 
 		Capsule chargeOfBtaro = new Capsule( btaro.getAge() );
-		System.out.println( "btaro:" + chargeOfBtaro.getCalculation() );
+		System.out.println( "btaro:" + chargeOfBtaro.getCharge() );
 
 		Capsule chargeOfCtaro = new Capsule( ctaro.getAge() );
-		System.out.println( "ctaro:" + chargeOfCtaro.getCalculation() );
+		System.out.println( "ctaro:" + chargeOfCtaro.getCharge() );
 	}
 }

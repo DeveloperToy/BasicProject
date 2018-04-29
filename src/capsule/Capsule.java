@@ -14,7 +14,13 @@ package capsule;
  */
 public class Capsule
 {
+	// 基準年齢
+	private static final int CHILD = 5;
+	private static final int OLDER = 65;
+
+	// 基準料金
 	private int base = 100;
+
 	// newすることでしか値を設定することができなくなった。
 	private int age;
 
@@ -24,11 +30,29 @@ public class Capsule
 	}
 
 	/**
-	 * 簡単な計算をして返す.<br>
+	 * 外から見える部分は簡単にする. <br>
+	 * (＝使う側に知って欲しい部分)<br>
+	 * ⇨使う人が触れる部分は必要な情報だけを抜き出す(＝抽象化する)ことでわかりやすくすること。
+	 * <ul>
+	 * <li>引数いらない。</li>
+	 * <li>double型の値を返す。</li>
+	 * <li>メソッド名から返ってくるものが「料金」を指していること。</li>
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public double getCharge()
+	{
+		return getCalculation();
+	}
+
+	/**
+	 * ①複雑な部分は隠す.<br>
+	 * (＝使う側が知らなくて良い部分)
 	 * 
 	 * @return 計算結果
 	 */
-	public double getCalculation()
+	private double getCalculation()
 	{
 		double result = 0;
 		double rate = getDiscountRate( this.age );
@@ -39,17 +63,18 @@ public class Capsule
 	}
 
 	/**
-	 * 割引率を取得する.
+	 * ②複雑な部分は隠す.<br>
+	 * (＝使う側が知らなくて良い部分)
 	 * 
 	 * @return 割引率
 	 */
 	private double getDiscountRate( int age )
 	{
-		if (5 >= this.age) {
+		if (CHILD >= this.age) {
 			return 0.0;
 		}
 
-		if (65 <= this.age) {
+		if (OLDER <= this.age) {
 			return 0.5;
 		}
 
