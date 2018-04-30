@@ -14,19 +14,18 @@ package capsule;
  */
 public class Capsule
 {
-	// 基準年齢
-	private static final int CHILD = 5;
-	private static final int OLDER = 65;
+	// 性別
+	private static final String WORMEN = "女";
 
 	// 基準料金
 	private int base = 100;
 
 	// newすることでしか値を設定することができなくなった。
-	private int age;
+	private String gender;
 
-	Capsule(int age)
+	Capsule(String gender)
 	{
-		this.age = age;
+		this.gender = gender;
 	}
 
 	/**
@@ -55,7 +54,7 @@ public class Capsule
 	private double getCalculation()
 	{
 		double result = 0;
-		double rate = getDiscountRate( this.age );
+		double rate = getDiscountRate();
 
 		result = Math.round( this.base * rate );
 
@@ -68,13 +67,9 @@ public class Capsule
 	 * 
 	 * @return 割引率
 	 */
-	private double getDiscountRate( int age )
+	private double getDiscountRate()
 	{
-		if (CHILD >= this.age) {
-			return 0.0;
-		}
-
-		if (OLDER <= this.age) {
+		if (WORMEN.equals( this.gender )) {
 			return 0.5;
 		}
 

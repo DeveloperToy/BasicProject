@@ -3,13 +3,13 @@ package capsule;
 public class Person
 {
 	private String name;
-	private int age;
+	private String gender;
 	private String birthday;
 
-	Person(String name, int age, String birthday)
+	Person(String name, String gender, String birthday)
 	{
 		this.name = name;
-		this.age = age;
+		this.gender = gender;
 		this.birthday = birthday;
 
 		System.out.println( this.getPerson() );
@@ -18,16 +18,16 @@ public class Person
 	/**
 	 * 各ゲッター
 	 * 
-	 * @return 名前・年齢・誕生日
+	 * @return 名前・性別・誕生日
 	 */
 	public String getName()
 	{
 		return this.name;
 	}
 
-	public int getAge()
+	public String getGender()
 	{
-		return this.age;
+		return this.gender;
 	}
 
 	public String getBirthday()
@@ -42,6 +42,6 @@ public class Person
 	 */
 	private String getPerson()
 	{
-		return this.name.concat( "：" ).concat( String.valueOf( this.age ) ).concat( "：" ).concat( this.birthday );
+		return this.name.concat( "：" ).concat( this.gender ).concat( "：" ).concat( this.birthday );
 	}
 }
