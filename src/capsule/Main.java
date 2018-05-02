@@ -2,10 +2,6 @@ package capsule;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
-import capsule.CapsuleConst.FormatOfDay;
 
 public class Main
 {
