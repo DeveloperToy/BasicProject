@@ -1,31 +1,46 @@
 package capsule;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
 import capsule.CapsuleConst.FormatOfDay;
 
 public class Main
 {
 	public static void main( String[] args )
 	{
-		Person ataro = new Person( "AAA", "男", "2000/01/01 17:00:12" );
-		Person btaro = new Person( "BBB", "男", "2005-05-01 12:30:45" );
-		Person cko = new Person( "CCC", "女", "2015_10_01 20:55:20" );
+		// Personのオブジェクト
+		Class<Person> personClass = Person.class;
 
-		Capsule chargeOfAtaro = new Capsule( ataro.getGender() );
-		System.out.println( "ataro:" + chargeOfAtaro.getCharge() );
+		// Personのインスタンス
+		Person[] personList = { new Person( "AAA", "男", "2000/01/01 17:00:12" ),
+				new Person( "BBB", "男", "2005/05/01 12:30:45" ), new Person( "CCC", "女", "2015/10/01 20:55:20" ) };
 
-		Capsule chargeOfBtaro = new Capsule( btaro.getGender() );
-		System.out.println( "btaro:" + chargeOfBtaro.getCharge() );
+		for (Person person : personList) {
+			try {
+				// Methodでprivateメソッドにアクセスできるようにする
+				Method method = personClass.getDeclaredMethod( "createkey", String.class );
+				method.setAccessible( true );
 
-		Capsule chargeOfCtaro = new Capsule( cko.getGender() );
-		System.out.println( "ctaro:" + chargeOfCtaro.getCharge() );
+				Object obj = method.invoke( person, person.getPersonInfo() );
 
-		Capsule2 changeOfFormat = new Capsule2( FormatOfDay.NORMAL );
-		System.out.println( "ataro:" + changeOfFormat.changeFormat( ataro.getBirthday() ) );
+				Capsule chargeOfAtaro = new Capsule( person.getGender() );
+				System.out.println( person.getName() + ":" + chargeOfAtaro.getCharge() );
+				System.out.println( "年齢：" + person.getAge() );
+				System.out.println( "個人情報：" + person.getPersonInfo() );
+				System.out.println( "key：" + obj.toString() );
+				System.out.println( "equals：" + obj.equals( "" ) );
+				System.out.println( "equals：" + obj.equals( method.invoke( person, person.getPersonInfo() ) ) );
 
-		changeOfFormat = new Capsule2( FormatOfDay.LINE_SEPARATION );
-		System.out.println( "btaro:" + changeOfFormat.changeFormat( btaro.getBirthday() ) );
-
-		changeOfFormat = new Capsule2( FormatOfDay.UNDERBAR_SEPARATION );
-		System.out.println( "ctaro:" + changeOfFormat.changeFormat( cko.getBirthday() ) );
+			} catch (NoSuchMethodException | SecurityException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package capsule;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import capsule.CapsuleConst.FormatOfDay;
@@ -19,9 +20,9 @@ import capsule.CapsuleConst.FormatOfDay;
  */
 public class Capsule2
 {
-	private FormatOfDay cod;
+	private String cod;
 
-	Capsule2(FormatOfDay cod)
+	Capsule2(String cod)
 	{
 		this.cod = cod;
 	}
@@ -33,7 +34,7 @@ public class Capsule2
 	 */
 
 	/**
-	 * 外から見える部分は簡単にする. <br>
+	 * ①外から見える部分は簡単にする. <br>
 	 * (＝使う側に知って欲しい部分)<br>
 	 * ⇨使う人が触れる部分は必要な情報だけを抜き出す(＝抽象化する)ことでわかりやすくすること。
 	 * <ul>
@@ -45,23 +46,49 @@ public class Capsule2
 	 * @param birthday
 	 * @return
 	 */
-	public LocalDateTime changeFormat( String birthday )
+	public LocalDateTime changeFormatLdt( String birthday )
 	{
 		return getLocalDateTimeOfBirthDay( birthday, this.cod );
 	}
 
 	/**
-	 * ①複雑な部分は隠す.<br>
+	 * ②複雑な部分は隠す.<br>
 	 * (＝使う側が知らなくて良い部分)
 	 * 
 	 * @return フォーマット変換後の誕生日
 	 * @throws ParseException
 	 */
-	private LocalDateTime getLocalDateTimeOfBirthDay( String birthday, FormatOfDay cod )
+	private LocalDateTime getLocalDateTimeOfBirthDay( String birthday, String cod )
 	{
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern( cod.getFormat() );
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern( cod );
 		LocalDateTime localBirthday = LocalDateTime.parse( birthday, fmt );
 
 		return localBirthday;
+	}
+
+	/**
+	 * ①フォーマット変更(日付ベース).<br>
+	 * 
+	 * @param birthday
+	 * @return
+	 */
+	public LocalDate changeFormatLd( String birthday )
+	{
+		return getLocalDateOfBirthDay( birthday, this.cod );
+	}
+
+	/**
+	 * ②複雑な部分は隠す.(日付ベース)<br>
+	 * 
+	 * @param birthday
+	 * @param cod
+	 * @return
+	 */
+	private LocalDate getLocalDateOfBirthDay( String birthday, String cod )
+	{
+		LocalDateTime dateTime = this.getLocalDateTimeOfBirthDay( birthday, cod );
+		LocalDate date = dateTime.toLocalDate();
+		return date;
+
 	}
 }
