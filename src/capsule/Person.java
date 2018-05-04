@@ -24,10 +24,16 @@ public class Person
 	}
 
 	/**
-	 * 各ゲッター
+	 * 各ゲッター.<br>
+	 * ※IDのみ、外部アクセス不可にする。
 	 * 
 	 * @return ID・名前・性別・誕生日
 	 */
+	private Integer getId()
+	{
+		return this.id;
+	}
+
 	public String getName()
 	{
 		return this.name;
@@ -59,17 +65,6 @@ public class Person
 	}
 
 	/**
-	 * id作成.<br>
-	 * 
-	 * @param maxId
-	 * @return idの最大値＋１
-	 */
-	synchronized private Integer createId()
-	{
-		return ++id;
-	}
-
-	/**
 	 * equalsのオーバーライド
 	 */
 	@Override
@@ -83,37 +78,11 @@ public class Person
 			return false;
 		}
 
-		Person person = ( Person ) obj;
+		Person p = ( Person ) obj;
 		// id
-		if (id == null) {
-			if (person.id != null) {
-				return false;
-			}
-		} else if (!( id == person.id )) {
+		if (Person.id != null) {
 			return false;
-		}
-		// 名前
-		if (name == null) {
-			if (person.name != null) {
-				return false;
-			}
-		} else if (!name.equals( person.name )) {
-			return false;
-		}
-		// 性別
-		if (gender == null) {
-			if (person.gender != null) {
-				return false;
-			}
-		} else if (!gender.equals( person.gender )) {
-			return false;
-		}
-		// 誕生日
-		if (birthday == null) {
-			if (person.birthday != null) {
-				return false;
-			}
-		} else if (!birthday.equals( person.birthday )) {
+		} else if (!( Person.id == p.getId() )) {
 			return false;
 		}
 
