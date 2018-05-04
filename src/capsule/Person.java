@@ -7,14 +7,16 @@ import capsule.CapsuleConst.FormatOfDay;
 
 public class Person
 {
-	private Integer id;
+	private Integer id = 0;
 	private String name;
 	private String gender;
 	private String birthday;
 
-	Person(Integer id, String name, String gender, String birthday)
+	Person(String name, String gender, String birthday)
 	{
-		this.id = createId( id );
+		synchronized (id) {
+			this.id = ++id;
+		}
 		this.name = name;
 		this.gender = gender;
 		this.birthday = birthday;
@@ -25,11 +27,6 @@ public class Person
 	 * 
 	 * @return ID・名前・性別・誕生日
 	 */
-	public Integer getId()
-	{
-		return this.id;
-	}
-
 	public String getName()
 	{
 		return this.name;
@@ -77,10 +74,8 @@ public class Person
 	 * @param maxId
 	 * @return idの最大値＋１
 	 */
-	synchronized private Integer createId( Integer maxId )
+	synchronized private Integer createId()
 	{
-		int id = maxId;
-
 		return ++id;
 	}
 
