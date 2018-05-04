@@ -30,8 +30,9 @@ public class Main
 				System.out.println( "年齢：" + person.getAge() );
 				System.out.println( "個人情報：" + person.getPersonInfo() );
 				System.out.println( "id：" + id );
-				System.out.println( "equals：" + String.valueOf( id ).equals( "" ) );
-				System.out.println( "equals：" + obj2.equals( method2.invoke( person, id ) ) );
+				System.out.println( "obj2：" + obj2 );
+				System.out.println( "空と比較equals：" + String.valueOf( id ).equals( "" ) );
+				System.out.println( "IDと比較equals：" + obj2.toString().equals( String.valueOf( id ) ) );
 
 			} catch (NoSuchMethodException | SecurityException e) {
 				// TODO 自動生成された catch ブロック
