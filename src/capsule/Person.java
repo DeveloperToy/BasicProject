@@ -1,7 +1,5 @@
 package capsule;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -9,9 +7,6 @@ import capsule.CapsuleConst.FormatOfDay;
 
 public class Person
 {
-	// keyの変換タイプ
-	private static final String MD5 = "MD5";
-
 	private String name;
 	private String gender;
 	private String birthday;
@@ -69,71 +64,76 @@ public class Person
 	}
 
 	/**
-	 * key作成.<br>
-	 * ※このプロジェクトでは、apatchライブラリがないから使えない。<br>
-	 * RandomStringUtils.randomAlphanumeric
+	 * id作成.<br>
 	 * 
-	 * @return
-	 * @throws NoSuchAlgorithmException
+	 * @param maxId
+	 * @return idの最大値＋１
 	 */
-	private String createkey( String personInfo ) throws NoSuchAlgorithmException
+	synchronized private Integer createId( Integer maxId )
 	{
-		MessageDigest md5 = MessageDigest.getInstance( MD5 );
-		// 個人情報のバイト数を使って、固定長のハッシュ値に変換
-		md5.update( personInfo.getBytes() );
-		// digest()は、変換完了後に、呼び出す最終処理
-		String md5Key = md5ToString( md5.digest() );
-		return md5Key;
+		int id = maxId;
+		id = ++id;
+
+		return id;
 	}
 
 	/**
-	 * 変換はググって少し改良.<br>
-	 * 
-	 * @param byteArray
-	 * @return 変換後のkey
-	 */
-	private String md5ToString( byte[] byteArray )
-	{
-		String md5Key = null;
-		for (int num : byteArray) {
-			if (num < 0) {
-				// マイナスの場合、符号なし整数に変換する
-				num += 256;
-			}
-			// 16進数（16進数）のASCII数字の文字列に変換
-			String hex = Integer.toHexString( num );
-			if (hex.length() == 1) {
-				hex = "0" + hex;
-			}
-			md5Key += hex;
-		}
-		return md5Key;
-	}
-
-	/**
-	 * equals
+	 * equalsのオーバーライド
 	 */
 	@Override
 	public boolean equals( Object obj )
 	{
-		if (obj == null) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 
-		if (!this.equals( obj )) {
-			return false;
-		}
-
-		if (!( obj instanceof Person ))
-			return false;
 		Person person = ( Person ) obj;
-
-		if (!( this.getPersonInfo() == person.getPersonInfo() )
-				&& !this.getPersonInfo().equals( person.getPersonInfo() )) {
+		// 名前
+		if (name == null) {
+			if (person.name != null) {
+				return false;
+			}
+		} else if (!name.equals( person.name )) {
+			return false;
+		}
+		// 性別
+		if (gender == null) {
+			if (person.gender != null) {
+				return false;
+			}
+		} else if (!gender.equals( person.gender )) {
+			return false;
+		}
+		// 誕生日
+		if (birthday == null) {
+			if (person.birthday != null) {
+				return false;
+			}
+		} else if (!birthday.equals( person.birthday )) {
 			return false;
 		}
 
 		return true;
 	}
 
+	/**
+	 * ハッシュコードを計算.
+	 */
+	@Override
+	public int hashCode()
+	{
+		// 31という数は、Java VM内部で計算するときに、乗算を高速なビットシフトに書き換えられるかららしい。
+		final int prime = 31;
+		int result = 1;
+		// フィールドをハッシュコードに変換して定数を足して計算
+		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
+		result = prime * result + ( ( gender == null ) ? 0 : gender.hashCode() );
+		result = prime * result + ( ( birthday == null ) ? 0 : birthday.hashCode() );
+
+		return result;
+	}
 }

@@ -14,21 +14,24 @@ public class Main
 		Person[] personList = { new Person( "AAA", "男", "2000/01/01 17:00:12" ),
 				new Person( "BBB", "男", "2005/05/01 12:30:45" ), new Person( "CCC", "女", "2015/10/01 20:55:20" ) };
 
+		int id = 0;
+
 		for (Person person : personList) {
 			try {
 				// Methodでprivateメソッドにアクセスできるようにする
-				Method method = personClass.getDeclaredMethod( "createkey", String.class );
-				method.setAccessible( true );
-
-				Object obj = method.invoke( person, person.getPersonInfo() );
+				Method method2 = personClass.getDeclaredMethod( "createId", Integer.class );
+				method2.setAccessible( true );
+				// 一旦、初期値を0で設定する
+				Object obj2 = method2.invoke( person, id );
+				id = ( int ) method2.invoke( person, id );
 
 				Capsule chargeOfAtaro = new Capsule( person.getGender() );
 				System.out.println( person.getName() + ":" + chargeOfAtaro.getCharge() );
 				System.out.println( "年齢：" + person.getAge() );
 				System.out.println( "個人情報：" + person.getPersonInfo() );
-				System.out.println( "key：" + obj.toString() );
-				System.out.println( "equals：" + obj.equals( "" ) );
-				System.out.println( "equals：" + obj.equals( method.invoke( person, person.getPersonInfo() ) ) );
+				System.out.println( "id：" + id );
+				System.out.println( "equals：" + String.valueOf( id ).equals( "" ) );
+				System.out.println( "equals：" + obj2.equals( method2.invoke( person, id ) ) );
 
 			} catch (NoSuchMethodException | SecurityException e) {
 				// TODO 自動生成された catch ブロック
