@@ -7,7 +7,7 @@ import capsule.CapsuleConst.FormatOfDay;
 
 public class Person
 {
-	private Integer id = 0;
+	private static Integer id = 0;
 	private String name;
 	private String gender;
 	private String birthday;
@@ -16,6 +16,7 @@ public class Person
 	{
 		synchronized (id) {
 			this.id = ++id;
+			System.out.println( "id：" + this.id );
 		}
 		this.name = name;
 		this.gender = gender;

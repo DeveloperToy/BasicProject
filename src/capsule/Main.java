@@ -1,7 +1,5 @@
 package capsule;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,8 +20,8 @@ public class Main
 			System.out.println( "個人情報：" + person.getPersonInfo() );
 			System.out.println( "[名前]空と比較equals：" + person.getName().equals( "" ) );
 			System.out.println( "[名前]名前と比較equals：" + person.getName().equals( personList.get( index ).getName() ) );
-			System.out.println( "[ID]空と比較equals：" + person.getName().equals( "" ) );
-			System.out.println( "[ID]名前と比較equals：" + person.equals( personList.get( index ) ) );
+			System.out.println( "[PERSON]NULLと比較equals：" + person.equals( null ) );
+			System.out.println( "[PERSON]equals：" + person.equals( personList.get( index ) ) );
 			index++;
 		}
 	}
