@@ -7,12 +7,14 @@ import capsule.CapsuleConst.FormatOfDay;
 
 public class Person
 {
+	private Integer id;
 	private String name;
 	private String gender;
 	private String birthday;
 
-	Person(String name, String gender, String birthday)
+	Person(Integer id, String name, String gender, String birthday)
 	{
+		this.id = createId( id );
 		this.name = name;
 		this.gender = gender;
 		this.birthday = birthday;
@@ -21,8 +23,13 @@ public class Person
 	/**
 	 * 各ゲッター
 	 * 
-	 * @return 名前・性別・誕生日
+	 * @return ID・名前・性別・誕生日
 	 */
+	public Integer getId()
+	{
+		return this.id;
+	}
+
 	public String getName()
 	{
 		return this.name;
@@ -60,7 +67,8 @@ public class Person
 	 */
 	public String getPersonInfo()
 	{
-		return this.name.concat( this.gender ).concat( this.birthday ).concat( String.valueOf( this.getAge() ) );
+		return String.valueOf( this.id ).concat( this.name ).concat( this.gender ).concat( this.birthday )
+				.concat( String.valueOf( this.getAge() ) );
 	}
 
 	/**
@@ -72,9 +80,8 @@ public class Person
 	synchronized private Integer createId( Integer maxId )
 	{
 		int id = maxId;
-		id = ++id;
 
-		return id;
+		return ++id;
 	}
 
 	/**
@@ -92,6 +99,14 @@ public class Person
 		}
 
 		Person person = ( Person ) obj;
+		// id
+		if (id == null) {
+			if (person.id != null) {
+				return false;
+			}
+		} else if (!( id == person.id )) {
+			return false;
+		}
 		// 名前
 		if (name == null) {
 			if (person.name != null) {

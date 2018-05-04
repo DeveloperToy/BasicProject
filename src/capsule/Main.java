@@ -2,19 +2,24 @@ package capsule;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main
 {
+	private static Integer id;
+
 	public static void main( String[] args )
 	{
 		// Personのオブジェクト
 		Class<Person> personClass = Person.class;
-
+		id = 0;
 		// Personのインスタンス
-		Person[] personList = { new Person( "AAA", "男", "2000/01/01 17:00:12" ),
-				new Person( "BBB", "男", "2005/05/01 12:30:45" ), new Person( "CCC", "女", "2015/10/01 20:55:20" ) };
+		Person ataro = new Person( id, "AAA", "男", "2000/01/01 17:00:12" );
+		Person btaro = new Person( ataro.getId(), "BBB", "男", "2005/05/01 12:30:45" );
+		Person cko = new Person( btaro.getId(), "AAA", "男", "2000/01/01 17:00:12" );
 
-		int id = 0;
+		List<Person> personList = Arrays.asList( ataro, btaro, cko );
 
 		for (Person person : personList) {
 			try {
