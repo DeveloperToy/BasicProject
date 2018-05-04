@@ -23,8 +23,7 @@ public class CapsuleConst
 	 */
 	public enum FormatOfDay
 	{
-		NORMAL( "yyyy/MM/dd HH:mm:ss" ), LINE_SEPARATION( "yyyy-MM-dd HH:mm:ss" ), UNDERBAR_SEPARATION(
-				"yyyy_MM_dd HH:mm:ss" );
+		NORMAL( "yyyy/MM/dd HH:mm:ss" );
 
 		private String format;
 

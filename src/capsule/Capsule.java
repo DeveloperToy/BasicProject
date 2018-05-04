@@ -1,5 +1,11 @@
 package capsule;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import capsule.CapsuleConst.FormatOfDay;
+
 /**
  * カプセル化の実装.<br>
  * 属性(オブジェクトごとに持つインスタンス変数)と操作(メソッド)を１つにまとめたもの。<br>
@@ -14,65 +20,69 @@ package capsule;
  */
 public class Capsule
 {
-	// 性別
-	private static final String WORMEN = "女";
+	private String cod;
 
-	// 基準料金
-	private int base = 100;
-
-	// newすることでしか値を設定することができなくなった。
-	private String gender;
-
-	Capsule(String gender)
+	Capsule(String cod)
 	{
-		this.gender = gender;
+		this.cod = cod;
 	}
 
 	/**
-	 * 外から見える部分は簡単にする. <br>
+	 * ①外から見える部分は簡単にする. <br>
 	 * (＝使う側に知って欲しい部分)<br>
 	 * ⇨使う人が触れる部分は必要な情報だけを抜き出す(＝抽象化する)ことでわかりやすくすること。
 	 * <ul>
-	 * <li>引数いらない。</li>
-	 * <li>double型の値を返す。</li>
-	 * <li>メソッド名から返ってくるものが「料金」を指していること。</li>
+	 * <li>引数2つ(StringとEnum)が必要。</li>
+	 * <li>LocalDateTime型の値を返す。</li>
+	 * <li>メソッド名から返ってくるものが「型が変わったこと」を指していること。</li>
 	 * </ul>
 	 * 
+	 * @param birthday
 	 * @return
 	 */
-	public double getCharge()
+	public LocalDateTime changeFormatLdt( String birthday )
 	{
-		return getCalculation();
-	}
-
-	/**
-	 * ①複雑な部分は隠す.<br>
-	 * (＝使う側が知らなくて良い部分)
-	 * 
-	 * @return 計算結果
-	 */
-	private double getCalculation()
-	{
-		double result = 0;
-		double rate = getDiscountRate();
-
-		result = Math.round( this.base * rate );
-
-		return result;
+		return getLocalDateTimeOfBirthDay( birthday, this.cod );
 	}
 
 	/**
 	 * ②複雑な部分は隠す.<br>
 	 * (＝使う側が知らなくて良い部分)
 	 * 
-	 * @return 割引率
+	 * @return フォーマット変換後の誕生日
+	 * @throws ParseException
 	 */
-	private double getDiscountRate()
+	private LocalDateTime getLocalDateTimeOfBirthDay( String birthday, String cod )
 	{
-		if (WORMEN.equals( this.gender )) {
-			return 0.5;
-		}
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern( cod );
+		LocalDateTime localBirthday = LocalDateTime.parse( birthday, fmt );
 
-		return 1.0;
+		return localBirthday;
+	}
+
+	/**
+	 * ①フォーマット変更(日付ベース).<br>
+	 * 
+	 * @param birthday
+	 * @return
+	 */
+	public LocalDate changeFormatLd( String birthday )
+	{
+		return getLocalDateOfBirthDay( birthday, this.cod );
+	}
+
+	/**
+	 * ②複雑な部分は隠す.(日付ベース)<br>
+	 * 
+	 * @param birthday
+	 * @param cod
+	 * @return
+	 */
+	private LocalDate getLocalDateOfBirthDay( String birthday, String cod )
+	{
+		LocalDateTime dateTime = this.getLocalDateTimeOfBirthDay( birthday, cod );
+		LocalDate date = dateTime.toLocalDate();
+		return date;
+
 	}
 }

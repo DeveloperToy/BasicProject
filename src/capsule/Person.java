@@ -52,21 +52,10 @@ public class Person
 	{
 		LocalDate today = LocalDate.now();
 
-		Capsule2 changeOfFormat = new Capsule2( FormatOfDay.NORMAL.getFormat() );
+		Capsule changeOfFormat = new Capsule( FormatOfDay.NORMAL.getFormat() );
 		LocalDate changeFormatBirthday = changeOfFormat.changeFormatLd( this.birthday );
 
 		return Period.between( changeFormatBirthday, today ).getYears();
-	}
-
-	/**
-	 * 個人情報取得.
-	 * 
-	 * @return 個人情報
-	 */
-	public String getPersonInfo()
-	{
-		return String.valueOf( this.id ).concat( this.name ).concat( this.gender ).concat( this.birthday )
-				.concat( String.valueOf( this.getAge() ) );
 	}
 
 	/**

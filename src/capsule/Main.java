@@ -14,10 +14,7 @@ public class Main
 
 		for (Person person : personList) {
 
-			Capsule chargeOfAtaro = new Capsule( person.getGender() );
-			System.out.println( person.getName() + ":" + chargeOfAtaro.getCharge() );
 			System.out.println( "年齢：" + person.getAge() );
-			System.out.println( "個人情報：" + person.getPersonInfo() );
 			System.out.println( "[名前]空と比較equals：" + person.getName().equals( "" ) );
 			System.out.println( "[名前]名前と比較equals：" + person.getName().equals( personList.get( index ).getName() ) );
 			System.out.println( "[PERSON]NULLと比較equals：" + person.equals( null ) );
