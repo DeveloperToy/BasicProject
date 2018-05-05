@@ -2,12 +2,14 @@ package capsule;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import capsule.CapsuleConst.FormatOfDay;
 
 public class Person
 {
-	private static Integer tmpId = 0;
+	// Atomicに変えて、読み込みして比較するまでの間に読み込んだ値が書き換わったりすることはないようにする
+	private static AtomicInteger tmpId = new AtomicInteger( 1 );
 
 	private Integer id = 0;
 	private String name;
@@ -16,8 +18,8 @@ public class Person
 
 	Person(String name, String gender, String birthday)
 	{
-		synchronized (id) {
-			this.id = ++tmpId;
+		synchronized (tmpId) {
+			this.id = tmpId.getAndIncrement();
 			System.out.println( "id：" + this.id );
 		}
 		this.name = name;
