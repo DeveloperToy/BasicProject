@@ -18,8 +18,8 @@ public class Main
 		// Personのインスタンス
 		int index = 0;
 		List<Person> personList = Arrays.asList(
-				// 性別NG
-				new Person( "AAA", Gender.MENS, "2000/01/01 17:00:12", WorkCategory.SE, 1, 20, 8 ),
+				// 職業NG
+				new Person( "AAA", Gender.WOMEN, "2000/01/01 17:00:12", WorkCategory.SE, 1, 20, 8 ),
 				// GarlsBar年齢上限：NG
 				new Person( "BBB", Gender.WOMEN, "1987/05/01 12:30:45", WorkCategory.GarlsBar, 1, 20, 8 ),
 				// DeliveryHealtLady年齢上限：NG
@@ -35,7 +35,9 @@ public class Main
 				// CabaretClubLady年齢上限：OK
 				new Person( "HHH", Gender.WOMEN, "1978/01/01 17:00:12", WorkCategory.CabaretClubLady, 3, 20, 8 ),
 				// All：OK
-				new Person( "III", Gender.WOMEN, "1998/05/01 12:30:45", WorkCategory.DeliveryHealtLady, 250, 20, 0 ) );
+				new Person( "III", Gender.WOMEN, "1998/05/01 12:30:45", WorkCategory.DeliveryHealtLady, 250, 20, 0 ),
+				// 性別：NG
+				new Person( "JJJ", Gender.MENS, "1998/05/01 12:30:45", WorkCategory.GarlsBar, 250, 20, 0 ) );
 
 		for (Person person : personList) {
 
@@ -58,6 +60,7 @@ public class Main
 			////////////////////////
 			// 対象外の職業
 			if (WorkCategory.SE.equals( person.getWork() ) || WorkCategory.OTHER.equals( person.getWork() )) {
+				System.out.println( "対象外の職業です" );
 				continue;
 			}
 
