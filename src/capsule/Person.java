@@ -30,7 +30,8 @@ public class Person
 	{
 		synchronized (tmpId) {
 			this.id = tmpId.getAndIncrement();
-			System.out.println( "id：" + this.id );
+//			//カプセル化用
+//			System.out.println( "id：" + this.id );
 		}
 		this.name = name;
 		this.gender = gender;
