@@ -2,21 +2,21 @@ package polymorphism;
 
 import polymorphism.PolymorphismConst.Gender;
 
-public class CabaretClubLady extends NightWork
+public class GarlsBarLady extends NightWork
 {
-	public CabaretClubLady(int age, Gender gender)
+	public GarlsBarLady(int age, Gender gender)
 	{
 		//親クラスのコンストラクタ作成
 		super( age, gender );
 		
 		// 基本時給
-		BASE_OF_WAGE = 2500;
+		BASE_OF_WAGE = 2000;
 		// 年齢上限
-		MAX_AGE = 40;
+		MAX_AGE = 30;
 		// 昇給対象勤続年数
-		BASE_OF_PAY_RISE = 1;
+		BASE_OF_PAY_RISE = 2;
 		// 昇給率
-		RATE_OF_PAY_RISE = 0.05f;
+		RATE_OF_PAY_RISE = 0.025f;
 	}
 
 	/**
@@ -25,11 +25,11 @@ public class CabaretClubLady extends NightWork
 	@Override
 	public void work()
 	{
-		System.out.println( "キャバ嬢は、お客の隣で酒を飲みまくることが仕事です" );
+		System.out.println( "ガールズバーは、カウンター越しにドリンクを飲みながら喋ることが仕事です" );
 	}
 
 	/**
-	 * 給料算出.<br>
+	 * 給料.<br>
 	 * @param period
 	 * <ul>
 	 * <li>第0引数：勤務年数</li>

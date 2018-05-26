@@ -5,6 +5,9 @@ import java.time.Period;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import capsule.CapsuleConst.FormatOfDay;
+import polymorphism.PolymorphismConst;
+import polymorphism.PolymorphismConst.Gender;
+import polymorphism.PolymorphismConst.WorkCategory;
 
 public class Person
 {
@@ -13,10 +16,17 @@ public class Person
 
 	private Integer id = 0;
 	private String name;
-	private String gender;
+	private Gender gender;
 	private String birthday;
 
-	Person(String name, String gender, String birthday)
+	// ポリモフィズム用フィールド
+	private WorkCategory work;
+	private int workOfYearOrTimes;
+	private int workOfDayOrTimes;
+	private int workOfHour;
+
+	Person(String name, Gender gender, String birthday, WorkCategory work, int workOfYearOrTimes, int workOfDayOrTimes,
+			int workOfHour)
 	{
 		synchronized (tmpId) {
 			this.id = tmpId.getAndIncrement();
@@ -25,6 +35,10 @@ public class Person
 		this.name = name;
 		this.gender = gender;
 		this.birthday = birthday;
+		this.work = work;
+		this.workOfYearOrTimes = workOfYearOrTimes;
+		this.workOfDayOrTimes = workOfDayOrTimes;
+		this.workOfHour = workOfHour;
 	}
 
 	/**
@@ -43,7 +57,7 @@ public class Person
 		return this.name;
 	}
 
-	public String getGender()
+	public Gender getGender()
 	{
 		return this.gender;
 	}
@@ -51,6 +65,26 @@ public class Person
 	public String getBirthday()
 	{
 		return this.birthday;
+	}
+
+	public WorkCategory getWork()
+	{
+		return work;
+	}
+
+	public int getWorkOfYearOrTimes()
+	{
+		return workOfYearOrTimes;
+	}
+
+	public int getWorkOfDayOrTimes()
+	{
+		return workOfDayOrTimes;
+	}
+
+	public int getWorkOfHour()
+	{
+		return workOfHour;
 	}
 
 	/**
@@ -106,6 +140,7 @@ public class Person
 		result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
 		result = prime * result + ( ( gender == null ) ? 0 : gender.hashCode() );
 		result = prime * result + ( ( birthday == null ) ? 0 : birthday.hashCode() );
+		result = prime * result + ( ( work == null ) ? 0 : work.hashCode() );
 
 		return result;
 	}

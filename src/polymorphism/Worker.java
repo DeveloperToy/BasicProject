@@ -1,6 +1,6 @@
 package polymorphism;
 
-import polymorphism.Category.Conditions;
+import polymorphism.PolymorphismConst.Conditions;
 
 /**
  * 職業フォーマット.<br>
@@ -13,7 +13,7 @@ public interface Worker
 	void work();
 
 	// 条件・資格
-	void precondition( Conditions... conditions1 );
+	boolean checkPrecondition( Conditions... conditions );
 
 	// 給料
 	void salary( int... period );

@@ -1,6 +1,6 @@
 package polymorphism;
 
-public class Category
+public class PolymorphismConst
 {
 	/** 性別. */
 	public enum Gender
@@ -17,5 +17,11 @@ public class Category
 		AGE,
 		/** 年齢. */
 		GENDER;
+	}
+
+	/** 職業. */
+	public enum WorkCategory
+	{
+		CabaretClubLady, GarlsBar, DeliveryHealtLady, SE, OTHER;
 	}
 }
