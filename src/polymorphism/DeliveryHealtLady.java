@@ -1,26 +1,15 @@
 package polymorphism;
 
-import polymorphism.PolymorphismConst.Gender;
+import capsule.Person;
+import polymorphism.PolymorphismConst.WorkCategory;
 
 public class DeliveryHealtLady extends NightWork
 {
 	/** 道具 */
 	private String item;
 
-	public DeliveryHealtLady(int age, Gender gender, String item)
+	public DeliveryHealtLady(String item)
 	{
-		//親クラスのコンストラクタ作成
-		super( age, gender );
-
-		// 基本時給
-		BASE_OF_WAGE = 10000;
-		// 年齢上限
-		MAX_AGE = 35;
-		// 昇給対象回数
-		BASE_OF_PAY_RISE = 100;
-		// 昇給率
-		RATE_OF_PAY_RISE = 0.1f;
-		// 仕事道具
 		this.item = item;
 	}
 
@@ -35,25 +24,32 @@ public class DeliveryHealtLady extends NightWork
 	}
 
 	/**
-	 * 給料.<br>
-	 * @param period
-	 * <ul>
-	 * <li>第0引数：勤務回数</li>
-	 * <li>第1引数：今月の回数</li>
-	 * </ul>
+	 * 給料算出.<br>
+	 * ※使う側には影響出ないようにする
+	 * 
+	 * @param p 個人情報
 	 */
 	@Override
-	public void salary( int... period )
+	public void getSalary( Person p )
+	{
+		calculateSalary( p.getWorkOfYearOrTimes(), p.getWorkOfDayOrTimes() );
+	}
+
+	/**
+	 * 給料計算.<br>
+	 * ※処理に変更が入ってもいいように別メソッドにする
+	 * 
+	 * @param times 勤務総回数
+	 * @param workTimesOfMonth 今月の勤務回数
+	 */
+	private void calculateSalary( int times, int workTimesOfMonth )
 	{
 		int salary = 0;
-		int i = 0;
-		int times = period[ i++ ];
-		int workTimesOfMonth = period[ i ];
-		int baseOfWage = BASE_OF_WAGE;
+		int baseOfWage = WorkCategory.DeliveryHealtLady.getBaseOfWage();
 
-		if (BASE_OF_PAY_RISE <= times) {
-			int upRate = Math.round( times / BASE_OF_PAY_RISE );
-			baseOfWage = Math.round( baseOfWage * ( 1 + RATE_OF_PAY_RISE * upRate ) );
+		if (WorkCategory.DeliveryHealtLady.getBaseOfPayRise() <= times) {
+			int upRate = Math.round( times / WorkCategory.DeliveryHealtLady.getBaseOfPayRise() );
+			baseOfWage = Math.round( baseOfWage * ( 1 + WorkCategory.DeliveryHealtLady.getRateOfPayRise() * upRate ) );
 		}
 		System.out.println( "1回あたりの給料は、" + baseOfWage + "円です。" );
 

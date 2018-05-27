@@ -1,24 +1,10 @@
 package polymorphism;
 
-import polymorphism.PolymorphismConst.Gender;
+import capsule.Person;
+import polymorphism.PolymorphismConst.WorkCategory;
 
 public class CabaretClubLady extends NightWork
 {
-	public CabaretClubLady(int age, Gender gender)
-	{
-		//親クラスのコンストラクタ作成
-		super( age, gender );
-		
-		// 基本時給
-		BASE_OF_WAGE = 2500;
-		// 年齢上限
-		MAX_AGE = 40;
-		// 昇給対象勤続年数
-		BASE_OF_PAY_RISE = 1;
-		// 昇給率
-		RATE_OF_PAY_RISE = 0.05f;
-	}
-
 	/**
 	 * 仕事内容照会.<br>
 	 */
@@ -30,25 +16,32 @@ public class CabaretClubLady extends NightWork
 
 	/**
 	 * 給料算出.<br>
-	 * @param period
-	 * <ul>
-	 * <li>第0引数：勤務年数</li>
-	 * <li>第1引数：勤務時間</li>
-	 * <li>第2引数：月別勤務日数</li>
-	 * </ul>
+	 * ※使う側には影響出ないようにする
+	 * 
+	 * @param p 個人情報
 	 */
 	@Override
-	public void salary( int... period )
+	public void getSalary( Person p )
+	{
+		// privateメソッドで、余計な変更は吸収する
+		calculateSalary( p.getWorkOfYearOrTimes(), p.getWorkOfDayOrTimes(), p.getWorkOfHour() );
+	}
+
+	/**
+	 * 給料計算.<br>
+	 * ※処理に変更が入ってもいいように別メソッドにする
+	 * 
+	 * @param years 勤務年数
+	 * @param workOfDays 勤務日数
+	 * @param workOfHour 勤務時間
+	 */
+	private void calculateSalary( int years, int workOfDays, int workOfHour )
 	{
 		int salary = 0;
-		int i = 0;
-		int years = period[ i++ ];
-		int workOfDays = period[ i++ ];
-		int workOfHour = period[ i ];
-		int hw = BASE_OF_WAGE;
+		int hw = WorkCategory.CabaretClubLady.getBaseOfWage();
 
-		if (BASE_OF_PAY_RISE <= years) {
-			hw = Math.round( hw * ( 1 + years * RATE_OF_PAY_RISE ) );
+		if (WorkCategory.CabaretClubLady.getBaseOfPayRise() <= years) {
+			hw = Math.round( hw * ( 1 + years * WorkCategory.CabaretClubLady.getRateOfPayRise() ) );
 		}
 		System.out.println( "時給は、" + hw + "円です。" );
 

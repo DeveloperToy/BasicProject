@@ -58,29 +58,27 @@ public class Main
 			////////////////////////
 			// ポリモフィズム用
 			////////////////////////
-			// 対象外の職業
+			// 対象外の職業かチェック
 			if (WorkCategory.SE.equals( person.getWork() ) || WorkCategory.OTHER.equals( person.getWork() )) {
 				System.out.println( "対象外の職業です" );
-				continue;
-			}
+			} else {
+				// 職業：キャバクラ
+				if (checkStatus( WorkCategory.CabaretClubLady, person )) {
+					CabaretClubLady ccLady = new CabaretClubLady();
+					inquiryNightWork( ccLady, person );
+				}
 
-			// 職業：キャバクラ
-			if (WorkCategory.CabaretClubLady.equals( person.getWork() )) {
-				CabaretClubLady ccLady = new CabaretClubLady( person.getAge(), person.getGender() );
-				inquiryNightWork( ccLady, person );
-			}
+				// 職業：ガールズバー
+				if (checkStatus( WorkCategory.GarlsBar, person )) {
+					GarlsBarLady gbLady = new GarlsBarLady();
+					inquiryNightWork( gbLady, person );
+				}
 
-			// 職業：ガールズバー
-			if (WorkCategory.GarlsBar.equals( person.getWork() )) {
-				GarlsBarLady gbLady = new GarlsBarLady( person.getAge(), person.getGender() );
-				inquiryNightWork( gbLady, person );
-			}
-
-			// 職業：デリヘル
-			if (WorkCategory.DeliveryHealtLady.equals( person.getWork() )) {
-				String item = "コスチューム";
-				DeliveryHealtLady dhLady = new DeliveryHealtLady( person.getAge(), person.getGender(), item );
-				inquiryNightWork( dhLady, person );
+				// 職業：デリヘル
+				if (checkStatus( WorkCategory.DeliveryHealtLady, person )) {
+					DeliveryHealtLady dhLady = new DeliveryHealtLady( "コスチューム" );
+					inquiryNightWork( dhLady, person );
+				}
 			}
 		}
 	}
@@ -93,11 +91,28 @@ public class Main
 	 */
 	private static void inquiryNightWork( NightWork nw, Person p )
 	{
-		if (!nw.checkPrecondition( Conditions.AGE, Conditions.GENDER )) {
-			System.out.println( p.getWork().toString() + "：条件がNGでした" );
-		} else {
-			nw.work();
-			nw.salary( p.getWorkOfYearOrTimes(), p.getWorkOfDayOrTimes(), p.getWorkOfHour() );
+		nw.work();
+		nw.getSalary( p );
+	}
+
+	/**
+	 * 個人情報チェック.<br>
+	 * 
+	 * @param wc 職種
+	 * @param p 個人情報
+	 * @return true：OK/false：NG
+	 */
+	private static boolean checkStatus( WorkCategory wc, Person p )
+	{
+		// 職業があっているかチェク
+		if (!wc.equals( p.getWork() )) {
+			return false;
 		}
+		// 就職条件があっているかチェック
+		if (!NightWork.checkPrecondition( p, WorkCategory.CabaretClubLady.getMaxAge() )) {
+			return false;
+		}
+
+		return true;
 	}
 }
